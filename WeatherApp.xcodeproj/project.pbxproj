@@ -12,6 +12,8 @@
 		5B516638284F997700744B53 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5B516637284F997700744B53 /* Assets.xcassets */; };
 		5B516645284FA05000744B53 /* CurrentWeatherVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B516644284FA05000744B53 /* CurrentWeatherVC.swift */; };
 		5B516647284FA0A300744B53 /* ForecastVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B516646284FA0A300744B53 /* ForecastVC.swift */; };
+		5B51664B284FAFF400744B53 /* WeatherRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B51664A284FAFF400744B53 /* WeatherRequest.swift */; };
+		5B51664E284FB65C00744B53 /* Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B51664D284FB65C00744B53 /* Configuration.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +24,8 @@
 		5B51663C284F997700744B53 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5B516644284FA05000744B53 /* CurrentWeatherVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentWeatherVC.swift; sourceTree = "<group>"; };
 		5B516646284FA0A300744B53 /* ForecastVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForecastVC.swift; sourceTree = "<group>"; };
+		5B51664A284FAFF400744B53 /* WeatherRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherRequest.swift; sourceTree = "<group>"; };
+		5B51664D284FB65C00744B53 /* Configuration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Configuration.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -55,6 +59,8 @@
 			isa = PBXGroup;
 			children = (
 				5B51662E284F997500744B53 /* AppDelegate.swift */,
+				5B51664C284FB64B00744B53 /* Configuration */,
+				5B516649284FAFE500744B53 /* Model */,
 				5B516642284F9A1A00744B53 /* ViewController */,
 				5B516643284F9CB400744B53 /* Support */,
 			);
@@ -86,6 +92,22 @@
 				5B516646284FA0A300744B53 /* ForecastVC.swift */,
 			);
 			path = "Weather VC";
+			sourceTree = "<group>";
+		};
+		5B516649284FAFE500744B53 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				5B51664A284FAFF400744B53 /* WeatherRequest.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		5B51664C284FB64B00744B53 /* Configuration */ = {
+			isa = PBXGroup;
+			children = (
+				5B51664D284FB65C00744B53 /* Configuration.swift */,
+			);
+			path = Configuration;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -157,9 +179,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5B51664E284FB65C00744B53 /* Configuration.swift in Sources */,
 				5B516647284FA0A300744B53 /* ForecastVC.swift in Sources */,
 				5B516633284F997500744B53 /* RootVC.swift in Sources */,
 				5B51662F284F997500744B53 /* AppDelegate.swift in Sources */,
+				5B51664B284FAFF400744B53 /* WeatherRequest.swift in Sources */,
 				5B516645284FA05000744B53 /* CurrentWeatherVC.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

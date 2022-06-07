@@ -17,6 +17,20 @@ final class RootVC: UIViewController {
 		super.viewDidLoad()
 		
 		setUpChildVCs()
+		fetchWeatherData()
+	}
+	
+	
+	private func fetchWeatherData() {
+		let weatherRequest = WeatherRequest(baseURL: WeatherService.authenticatedURL, location: Defaults.location)
+		
+		URLSession.shared.dataTask(with: weatherRequest.url) { data, response, error in
+			if let response = response {
+				print(response)
+			} else {
+				print(error!)
+			}
+		}.resume()
 	}
 	
 	
