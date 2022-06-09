@@ -7,20 +7,26 @@
 
 import Foundation
 
+enum WeatherDataError: Error {
+	case noWeatherDataAvailable
+}
+
 class NetworkManager {
 	
 	
-	func fetchWeatherData(handler: @escaping (Result<ForecastResponse, Error>) -> Void ) {
+	func fetchWeatherData(handler: @escaping (Result<ForecastResponse, WeatherDataError>) -> Void ) {
 		let weatherRequest = WeatherRequest(baseURL: WeatherService.authenticatedURL, location: Defaults.location)
 		
 		URLSession.shared.dataTask(with: weatherRequest.url) { data, response, error in
-			if let response = response as? HTTPURLResponse {
-				print(response.statusCode)
+			
+			guard let response = response as? HTTPURLResponse, response.statusCode == 200 else {
+				return handler(.failure(.noWeatherDataAvailable))
 			}
+			
 			
 			guard let data = data, error == nil else {
 				print("unable to fetch weather data: \(error!)")
-				return handler(.failure(error!))
+				return handler(.failure(.noWeatherDataAvailable))
 			}
 			
 			do {
@@ -28,7 +34,7 @@ class NetworkManager {
 				handler(.success(dataResponse))
 			} catch {
 				print("invalid response, unable to decode: \(error)")
-				handler(.failure(error))
+				handler(.failure(.noWeatherDataAvailable))
 			}
 		}.resume()
 	}

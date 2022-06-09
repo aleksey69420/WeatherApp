@@ -9,21 +9,29 @@ import UIKit
 
 final class RootVC: UIViewController {
 	
+	private enum AlertType {
+		case noWeatherDataAvailable
+	}
+	
+	
 	private let currentWeatherVC = CurrentWeatherVC()
 	private let forecastVC = ForecastVC()
 
-	private lazy var networkManager = NetworkManager()
+	private let networkManager = NetworkManager() // add lazy init when working with location
+	
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		
 		setUpChildVCs()
+		
 		networkManager.fetchWeatherData { result in
 			switch result {
 			case .success(let response):
 				print(response)
 			case .failure(let error):
 				print(error.localizedDescription)
+				self.presentAlert(of: .noWeatherDataAvailable)
 			}
 		}
 	}
@@ -57,7 +65,27 @@ final class RootVC: UIViewController {
 		currentWeatherVC.didMove(toParent: self)
 		forecastVC.didMove(toParent: self)
 	}
+	
+	
+	private func presentAlert(of type: AlertType) {
+		let title: String
+		let message: String
+		
+		switch type {
+		case .noWeatherDataAvailable:
+			title = "Unable to fetch weather data"
+			message = "The application is unable to fetch weather data. Please make sure that your device is connected to the internet and try again"
+		}
+		
+		DispatchQueue.main.async {
+			let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+			let cancelAction = UIAlertAction(title: "OK", style: .cancel)
+			alertController.addAction(cancelAction)
+			self.present(alertController, animated: true)
+		}
+	}
 }
+
 
 // overkill in this case
 extension RootVC {
