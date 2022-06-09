@@ -14,7 +14,7 @@ enum WeatherDataError: Error {
 class NetworkManager {
 	
 	
-	func fetchWeatherData(handler: @escaping (Result<ForecastResponse, WeatherDataError>) -> Void ) {
+	func fetchWeatherData(handler: @escaping (Result<WeatherData, WeatherDataError>) -> Void ) {
 		let weatherRequest = WeatherRequest(baseURL: WeatherService.authenticatedURL, location: Defaults.location)
 		
 		URLSession.shared.dataTask(with: weatherRequest.url) { data, response, error in
@@ -30,7 +30,7 @@ class NetworkManager {
 			}
 			
 			do {
-				let dataResponse = try JSONDecoder().decode(ForecastResponse.self, from: data)
+				let dataResponse = try JSONDecoder().decode(DarkSkyForecastResponse.self, from: data)
 				handler(.success(dataResponse))
 			} catch {
 				print("invalid response, unable to decode: \(error)")

@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct ForecastResponse: Codable {
+struct DarkSkyForecastResponse: Codable {
 	
 	struct CurrentConditions: Codable {
 		let time: Date
@@ -37,3 +37,19 @@ struct ForecastResponse: Codable {
 	let currently: CurrentConditions
 	let daily: Daily
 }
+
+
+extension DarkSkyForecastResponse: WeatherData {
+	var current: CurrentWeatherConditions {
+		return currently
+	}
+	
+	var forecast: [ForecastWeatherConditions] {
+		return daily.data
+	}
+}
+
+// just formal confirmation because of the same structure
+extension DarkSkyForecastResponse.CurrentConditions: CurrentWeatherConditions { }
+
+extension DarkSkyForecastResponse.Daily.DailyConditions: ForecastWeatherConditions { }

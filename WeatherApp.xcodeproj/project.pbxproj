@@ -14,8 +14,9 @@
 		5B516647284FA0A300744B53 /* ForecastVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B516646284FA0A300744B53 /* ForecastVC.swift */; };
 		5B51664B284FAFF400744B53 /* WeatherRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B51664A284FAFF400744B53 /* WeatherRequest.swift */; };
 		5B51664E284FB65C00744B53 /* Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B51664D284FB65C00744B53 /* Configuration.swift */; };
-		5B5166502851408200744B53 /* ForecastResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B51664F2851408200744B53 /* ForecastResponse.swift */; };
+		5B5166502851408200744B53 /* DarkSkyForecastResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B51664F2851408200744B53 /* DarkSkyForecastResponse.swift */; };
 		5B5166532851723F00744B53 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B5166522851723F00744B53 /* NetworkManager.swift */; };
+		5B51665628519A2300744B53 /* WeatherData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B51665528519A2300744B53 /* WeatherData.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,8 +29,9 @@
 		5B516646284FA0A300744B53 /* ForecastVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForecastVC.swift; sourceTree = "<group>"; };
 		5B51664A284FAFF400744B53 /* WeatherRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherRequest.swift; sourceTree = "<group>"; };
 		5B51664D284FB65C00744B53 /* Configuration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Configuration.swift; sourceTree = "<group>"; };
-		5B51664F2851408200744B53 /* ForecastResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForecastResponse.swift; sourceTree = "<group>"; };
+		5B51664F2851408200744B53 /* DarkSkyForecastResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DarkSkyForecastResponse.swift; sourceTree = "<group>"; };
 		5B5166522851723F00744B53 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
+		5B51665528519A2300744B53 /* WeatherData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherData.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,6 +65,7 @@
 			isa = PBXGroup;
 			children = (
 				5B51662E284F997500744B53 /* AppDelegate.swift */,
+				5B516654285199FE00744B53 /* Protocol */,
 				5B5166512851722000744B53 /* Manager */,
 				5B51664C284FB64B00744B53 /* Configuration */,
 				5B516649284FAFE500744B53 /* Model */,
@@ -103,7 +106,7 @@
 			isa = PBXGroup;
 			children = (
 				5B51664A284FAFF400744B53 /* WeatherRequest.swift */,
-				5B51664F2851408200744B53 /* ForecastResponse.swift */,
+				5B51664F2851408200744B53 /* DarkSkyForecastResponse.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -122,6 +125,14 @@
 				5B5166522851723F00744B53 /* NetworkManager.swift */,
 			);
 			path = Manager;
+			sourceTree = "<group>";
+		};
+		5B516654285199FE00744B53 /* Protocol */ = {
+			isa = PBXGroup;
+			children = (
+				5B51665528519A2300744B53 /* WeatherData.swift */,
+			);
+			path = Protocol;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -199,7 +210,8 @@
 				5B51662F284F997500744B53 /* AppDelegate.swift in Sources */,
 				5B5166532851723F00744B53 /* NetworkManager.swift in Sources */,
 				5B51664B284FAFF400744B53 /* WeatherRequest.swift in Sources */,
-				5B5166502851408200744B53 /* ForecastResponse.swift in Sources */,
+				5B5166502851408200744B53 /* DarkSkyForecastResponse.swift in Sources */,
+				5B51665628519A2300744B53 /* WeatherData.swift in Sources */,
 				5B516645284FA05000744B53 /* CurrentWeatherVC.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
