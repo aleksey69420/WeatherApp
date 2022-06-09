@@ -12,25 +12,20 @@ final class RootVC: UIViewController {
 	private let currentWeatherVC = CurrentWeatherVC()
 	private let forecastVC = ForecastVC()
 
+	private lazy var networkManager = NetworkManager()
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		
 		setUpChildVCs()
-		fetchWeatherData()
-	}
-	
-	
-	private func fetchWeatherData() {
-		let weatherRequest = WeatherRequest(baseURL: WeatherService.authenticatedURL, location: Defaults.location)
-		
-		URLSession.shared.dataTask(with: weatherRequest.url) { data, response, error in
-			if let response = response {
+		networkManager.fetchWeatherData { result in
+			switch result {
+			case .success(let response):
 				print(response)
-			} else {
-				print(error!)
+			case .failure(let error):
+				print(error.localizedDescription)
 			}
-		}.resume()
+		}
 	}
 	
 	
