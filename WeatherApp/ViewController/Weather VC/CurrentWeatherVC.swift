@@ -26,18 +26,17 @@ final class CurrentWeatherVC: UIViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		
-		
 		configureUIElements()
 		layoutUI()
-		updateUI() // temporary remove later
 	}
 	
 	
 	private func updateUI() {
+		guard let now = now else { return }
 		locationLabel.text = "Apex"
-		temperatureLabel.text = "24℃"
-		summaryLabel.text = "Mostly Clear"
-		windSpeedLabel.text = "3 MPH"
+		temperatureLabel.text = "\(now.temperature)℉"
+		summaryLabel.text = now.summary
+		windSpeedLabel.text = "\(now.windSpeed) MPH"
 	}
 	
 	private func configureUIElements() {

@@ -25,10 +25,13 @@ final class RootVC: UIViewController {
 		
 		setUpChildVCs()
 		
-		networkManager.fetchWeatherData { result in
+		networkManager.fetchWeatherData { [weak self] result in
+			guard let self = self else { return }
 			switch result {
 			case .success(let response):
-				print(response)
+				DispatchQueue.main.async {
+					self.currentWeatherVC.now = response.current
+				}
 			case .failure(let error):
 				print(error.localizedDescription)
 				self.presentAlert(of: .noWeatherDataAvailable)
