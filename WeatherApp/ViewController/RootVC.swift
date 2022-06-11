@@ -31,6 +31,7 @@ final class RootVC: UIViewController {
 			case .success(let response):
 				DispatchQueue.main.async {
 					self.currentWeatherVC.now = response.current
+					self.forecastVC.forecast = response.forecast
 				}
 			case .failure(let error):
 				print(error.localizedDescription)
