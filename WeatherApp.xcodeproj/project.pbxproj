@@ -17,6 +17,7 @@
 		5B5166502851408200744B53 /* DarkSkyForecastResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B51664F2851408200744B53 /* DarkSkyForecastResponse.swift */; };
 		5B5166532851723F00744B53 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B5166522851723F00744B53 /* NetworkManager.swift */; };
 		5B51665628519A2300744B53 /* WeatherData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B51665528519A2300744B53 /* WeatherData.swift */; };
+		5B51665828542BBD00744B53 /* Log.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B51665728542BBD00744B53 /* Log.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +33,7 @@
 		5B51664F2851408200744B53 /* DarkSkyForecastResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DarkSkyForecastResponse.swift; sourceTree = "<group>"; };
 		5B5166522851723F00744B53 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		5B51665528519A2300744B53 /* WeatherData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherData.swift; sourceTree = "<group>"; };
+		5B51665728542BBD00744B53 /* Log.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Log.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -89,6 +91,7 @@
 			children = (
 				5B516637284F997700744B53 /* Assets.xcassets */,
 				5B51663C284F997700744B53 /* Info.plist */,
+				5B51665728542BBD00744B53 /* Log.swift */,
 			);
 			path = Support;
 			sourceTree = "<group>";
@@ -206,6 +209,7 @@
 			files = (
 				5B51664E284FB65C00744B53 /* Configuration.swift in Sources */,
 				5B516647284FA0A300744B53 /* ForecastVC.swift in Sources */,
+				5B51665828542BBD00744B53 /* Log.swift in Sources */,
 				5B516633284F997500744B53 /* RootVC.swift in Sources */,
 				5B51662F284F997500744B53 /* AppDelegate.swift in Sources */,
 				5B5166532851723F00744B53 /* NetworkManager.swift in Sources */,
