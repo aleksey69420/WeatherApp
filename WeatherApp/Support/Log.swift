@@ -16,9 +16,9 @@ enum Log {
 		
 		fileprivate var prefix: String {
 			switch self {
-			case .info: return "INFO ✅"
-			case .warning: return "WARNING ⚠️"
-			case .error: return "ALERT ❌"
+			case .info: return "✅"
+			case .warning: return "⚠️"
+			case .error: return "❌"
 			}
 		}
 	}
@@ -57,7 +57,7 @@ enum Log {
 	//MARK: - Private
 	fileprivate static func handleLog(level: LogLevel, message: String, shouldLogContext: Bool, context: Context) {
 		
-		let logComponents = ["[\(level.prefix)]", message]
+		let logComponents = ["\(level.prefix)", message]
 		
 		var fullString = logComponents.joined(separator: " ")
 		
