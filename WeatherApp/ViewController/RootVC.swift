@@ -6,11 +6,13 @@
 //
 
 import UIKit
+import CoreLocation
 
 final class RootVC: UIViewController {
 	
 	private enum AlertType {
 		case noWeatherDataAvailable
+		case notAuthorizedToRequestLocation
 	}
 	
 	
@@ -19,11 +21,22 @@ final class RootVC: UIViewController {
 
 	private let networkManager = NetworkManager() // add lazy init when working with location
 	
+	private lazy var locationManager: CLLocationManager = {
+		let locationManager = CLLocationManager()
+		
+		locationManager.distanceFilter = 1000.0
+		locationManager.desiredAccuracy = 1000.0
+		
+		locationManager.delegate = self
+		return locationManager
+	}()
+	
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		
 		setUpChildVCs()
+		fetchLocation()
 		
 		networkManager.fetchWeatherData { [weak self] result in
 			guard let self = self else { return }
@@ -38,6 +51,11 @@ final class RootVC: UIViewController {
 				self.presentAlert(of: .noWeatherDataAvailable)
 			}
 		}
+	}
+	
+	
+	private func fetchLocation() {
+		locationManager.requestLocation()
 	}
 	
 	
@@ -79,6 +97,9 @@ final class RootVC: UIViewController {
 		case .noWeatherDataAvailable:
 			title = "Unable to fetch weather data"
 			message = "The application is unable to fetch weather data. Please make sure that your device is connected to the internet and try again"
+		case .notAuthorizedToRequestLocation:
+			title = "Unable to fetch your location"
+			message = "If you would like to fetch the weather at your current location please update the location settings of the app."
 		}
 		
 		DispatchQueue.main.async {
@@ -87,6 +108,34 @@ final class RootVC: UIViewController {
 			alertController.addAction(cancelAction)
 			self.present(alertController, animated: true)
 		}
+	}
+}
+
+
+extension RootVC: CLLocationManagerDelegate {
+	
+	func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+		Log.error("Unable to fetch the location")
+	}
+	
+	
+	func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
+		Log.info("Getting the location authorization")
+		if manager.authorizationStatus == .notDetermined {
+			locationManager.requestWhenInUseAuthorization()
+		} else if manager.authorizationStatus == .authorizedWhenInUse {
+			fetchLocation()
+		} else {
+			presentAlert(of: .notAuthorizedToRequestLocation)
+		}
+	}
+	
+	
+	func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+		guard let location = locations.first else { return }
+		
+		// fetch the weather data by the location
+		print(location)
 	}
 }
 
