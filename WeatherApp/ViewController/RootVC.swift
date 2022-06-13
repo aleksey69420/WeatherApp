@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import CoreLocation
 
 final class RootVC: UIViewController {
 	
@@ -20,16 +19,15 @@ final class RootVC: UIViewController {
 	private let forecastVC = ForecastVC()
 
 	private let networkManager = NetworkManager() // add lazy init when working with location
+	private let locationService: LocationService
 	
-	private lazy var locationManager: CLLocationManager = {
-		let locationManager = CLLocationManager()
-		
-		locationManager.distanceFilter = 1000.0
-		locationManager.desiredAccuracy = 1000.0
-		
-		locationManager.delegate = self
-		return locationManager
-	}()
+	
+	init(locationService: LocationService) {
+		self.locationService = locationService
+		super.init(nibName: nil, bundle: nil)
+	}
+	
+	required init?(coder: NSCoder) { fatalError() }
 	
 	
 	override func viewDidLoad() {
@@ -55,7 +53,22 @@ final class RootVC: UIViewController {
 	
 	
 	private func fetchLocation() {
-		locationManager.requestLocation()
+		
+		locationService.fetchLocation { [weak self] result in
+			guard let self = self else { return }
+			
+			switch result {
+			case .success(let location):
+				print("location - \(location)")
+				break
+			case .failure(let error):
+				// display error message about not getting the current location
+				print("error - \(error)")
+				break
+			}
+		}
+		
+		
 	}
 	
 	
@@ -108,34 +121,6 @@ final class RootVC: UIViewController {
 			alertController.addAction(cancelAction)
 			self.present(alertController, animated: true)
 		}
-	}
-}
-
-
-extension RootVC: CLLocationManagerDelegate {
-	
-	func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-		Log.error("Unable to fetch the location")
-	}
-	
-	
-	func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
-		Log.info("Getting the location authorization")
-		if manager.authorizationStatus == .notDetermined {
-			locationManager.requestWhenInUseAuthorization()
-		} else if manager.authorizationStatus == .authorizedWhenInUse {
-			fetchLocation()
-		} else {
-			presentAlert(of: .notAuthorizedToRequestLocation)
-		}
-	}
-	
-	
-	func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-		guard let location = locations.first else { return }
-		
-		// fetch the weather data by the location
-		print(location)
 	}
 }
 
