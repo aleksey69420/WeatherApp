@@ -21,6 +21,13 @@ final class RootVC: UIViewController {
 	private let networkManager = NetworkManager() // add lazy init when working with location
 	private let locationService: LocationService
 	
+	private var currentLocation: Location? {
+		didSet {
+			// network request to get weather data
+			Log.warning("fetching weather by location")
+		}
+	}
+	
 	
 	init(locationService: LocationService) {
 		self.locationService = locationService
@@ -59,16 +66,11 @@ final class RootVC: UIViewController {
 			
 			switch result {
 			case .success(let location):
-				print("location - \(location)")
-				break
-			case .failure(let error):
-				// display error message about not getting the current location
-				print("error - \(error)")
-				break
+				self.currentLocation = location
+			case .failure(_):
+				self.presentAlert(of: .notAuthorizedToRequestLocation)
 			}
 		}
-		
-		
 	}
 	
 	
