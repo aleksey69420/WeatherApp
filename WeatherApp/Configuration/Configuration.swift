@@ -10,7 +10,7 @@ import Foundation
 
 enum Defaults {
 	//static let location = Location(latitude: 35.73265, longitude: -78.85029) // apex
-	static let location = Location(latitude: 39.9526, longitude: -75.1652) // phila
+	static let location = Location(latitude: 71.706936, longitude: -42.604303000000016) // greenland
 }
 
 enum WeatherService {

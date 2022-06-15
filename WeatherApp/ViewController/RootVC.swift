@@ -23,15 +23,12 @@ final class RootVC: UIViewController {
 	
 	private var currentLocation: Location? {
 		didSet {
-			networkManager.fetchWeatherData(for: currentLocation!) { result in
+			networkManager.fetchWeatherData(for: currentLocation!) { [weak self] result in
+				guard let self = self else { return }
 				switch result {
 				case .success(let weatherData):
-					DispatchQueue.main.async {
-						self.currentWeatherVC.now = weatherData.current
-						self.forecastVC.forecast = weatherData.forecast
-					}
-				case .failure(let error):
-					print(error.localizedDescription)
+					self.handleWeatherResponse(weatherData)
+				case .failure:
 					self.presentAlert(of: .noWeatherDataAvailable)
 				}
 			}
@@ -56,13 +53,9 @@ final class RootVC: UIViewController {
 		networkManager.fetchWeatherData(for: Defaults.location) { [weak self] result in
 			guard let self = self else { return }
 			switch result {
-			case .success(let response):
-				DispatchQueue.main.async {
-					self.currentWeatherVC.now = response.current
-					self.forecastVC.forecast = response.forecast
-				}
-			case .failure(let error):
-				print(error.localizedDescription)
+			case .success(let weatherData):
+				self.handleWeatherResponse(weatherData)
+			case .failure(_):
 				self.presentAlert(of: .noWeatherDataAvailable)
 			}
 		}
@@ -80,6 +73,14 @@ final class RootVC: UIViewController {
 			case .failure(_):
 				self.presentAlert(of: .notAuthorizedToRequestLocation)
 			}
+		}
+	}
+	
+	
+	private func handleWeatherResponse(_ weatherData: WeatherData) {
+		DispatchQueue.main.async {
+			self.currentWeatherVC.now = weatherData.current
+			self.forecastVC.forecast = weatherData.forecast
 		}
 	}
 	

@@ -53,6 +53,7 @@ extension LocationManager: CLLocationManagerDelegate {
 	
 	func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
 		Log.error("Unable to fetch the location")
+		//TODO: handle the failed case - alert to the user
 	}
 	
 	
