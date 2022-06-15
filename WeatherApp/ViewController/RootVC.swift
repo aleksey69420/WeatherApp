@@ -23,8 +23,18 @@ final class RootVC: UIViewController {
 	
 	private var currentLocation: Location? {
 		didSet {
-			// network request to get weather data
-			Log.warning("fetching weather by location")
+			networkManager.fetchWeatherData(for: currentLocation!) { result in
+				switch result {
+				case .success(let weatherData):
+					DispatchQueue.main.async {
+						self.currentWeatherVC.now = weatherData.current
+						self.forecastVC.forecast = weatherData.forecast
+					}
+				case .failure(let error):
+					print(error.localizedDescription)
+					self.presentAlert(of: .noWeatherDataAvailable)
+				}
+			}
 		}
 	}
 	
@@ -43,7 +53,7 @@ final class RootVC: UIViewController {
 		setUpChildVCs()
 		fetchLocation()
 		
-		networkManager.fetchWeatherData { [weak self] result in
+		networkManager.fetchWeatherData(for: Defaults.location) { [weak self] result in
 			guard let self = self else { return }
 			switch result {
 			case .success(let response):

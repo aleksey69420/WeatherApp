@@ -14,8 +14,9 @@ enum WeatherDataError: Error {
 class NetworkManager {
 	
 	
-	func fetchWeatherData(handler: @escaping (Result<WeatherData, WeatherDataError>) -> Void ) {
-		let weatherRequest = WeatherRequest(baseURL: WeatherService.authenticatedURL, location: Defaults.location)
+	func fetchWeatherData(for location: Location, handler: @escaping (Result<WeatherData, WeatherDataError>) -> Void ) {
+		
+		let weatherRequest = WeatherRequest(baseURL: WeatherService.authenticatedURL, location: location)
 		
 		URLSession.shared.dataTask(with: weatherRequest.url) { data, response, error in
 			
