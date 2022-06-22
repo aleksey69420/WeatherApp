@@ -16,6 +16,8 @@ final class CurrentWeatherVC: UIViewController {
 	
 	let stackView = UIStackView()
 	
+	var locationString: String?
+	
 	var now: CurrentWeatherConditions? {
 		didSet {
 			updateUI()
@@ -33,7 +35,7 @@ final class CurrentWeatherVC: UIViewController {
 	
 	private func updateUI() {
 		guard let now = now else { return }
-		locationLabel.text = "Apex"
+		locationLabel.text = locationString
 		temperatureLabel.text = "\(now.temperature)℉"
 		summaryLabel.text = now.summary
 		windSpeedLabel.text = "\(now.windSpeed) MPH"

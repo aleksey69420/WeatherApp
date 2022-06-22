@@ -64,7 +64,7 @@ extension LocationManager: CLLocationManagerDelegate {
 		} else if manager.authorizationStatus == .authorizedWhenInUse {
 			locationManager.requestLocation()
 		} else {
-			//presentAlert(of: .notAuthorizedToRequestLocation)
+			// .denied, .restricted statuses
 			Log.error("Not authorized to use the device location")
 			didFetchLocation?(.failure(.notAuthorizedToRequestLocation))
 			

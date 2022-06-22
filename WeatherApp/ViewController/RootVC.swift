@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import CoreLocation
 
 final class RootVC: UIViewController {
 	
@@ -21,8 +22,12 @@ final class RootVC: UIViewController {
 	private let networkManager = NetworkManager() // add lazy init when working with location
 	private let locationService: LocationService
 	
+	private lazy var geocoder = CLGeocoder()
+	var placemark: CLPlacemark?
+	
 	private var currentLocation: Location? {
 		didSet {
+			geodecodeCoordinates(currentLocation!)
 			networkManager.fetchWeatherData(for: currentLocation!) { [weak self] result in
 				guard let self = self else { return }
 				switch result {
@@ -49,16 +54,6 @@ final class RootVC: UIViewController {
 		
 		setUpChildVCs()
 		fetchLocation()
-		
-		networkManager.fetchWeatherData(for: Defaults.location) { [weak self] result in
-			guard let self = self else { return }
-			switch result {
-			case .success(let weatherData):
-				self.handleWeatherResponse(weatherData)
-			case .failure(_):
-				self.presentAlert(of: .noWeatherDataAvailable)
-			}
-		}
 	}
 	
 	
@@ -72,6 +67,22 @@ final class RootVC: UIViewController {
 				self.currentLocation = location
 			case .failure(_):
 				self.presentAlert(of: .notAuthorizedToRequestLocation)
+			}
+		}
+	}
+	
+	private func geodecodeCoordinates(_ location: Location) {
+		geocoder.reverseGeocodeLocation(CLLocation(latitude: location.latitude, longitude: location.longitude)) { placemarks, error in
+			if let error = error {
+				print("geocoding error: \(error)")
+			}
+			
+			if let placemarks = placemarks {
+				print("found placemarks: \(placemarks)")
+				let placemark = placemarks.first
+				DispatchQueue.main.async {
+					self.currentWeatherVC.locationString = placemark?.locality
+				}
 			}
 		}
 	}
