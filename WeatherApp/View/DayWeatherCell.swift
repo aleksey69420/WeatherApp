@@ -47,6 +47,8 @@ class DayWeatherCell: UITableViewCell {
 		horizonalStack.addArrangedSubview(minTemperatureLabel)
 		horizonalStack.addArrangedSubview(maxTemperatureLabel)
 		
+		iconImageView.contentMode = .scaleAspectFit
+		
 		
 		NSLayoutConstraint.activate([
 			horizonalStack.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 8),

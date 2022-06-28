@@ -154,7 +154,7 @@ extension RootVC {
 	
 	fileprivate enum Layout {
 		enum DayView {
-			static let height: CGFloat = 300
+			static let height: CGFloat = 200
 		}
 	}
 }
