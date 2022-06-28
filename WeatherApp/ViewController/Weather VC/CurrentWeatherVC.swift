@@ -16,7 +16,11 @@ final class CurrentWeatherVC: UIViewController {
 	
 	let stackView = UIStackView()
 	
-	var locationString: String?
+	var locationString: String? {
+		didSet {
+			locationLabel.text = locationString ?? ""
+		}
+	}
 	
 	var now: CurrentWeatherConditions? {
 		didSet {

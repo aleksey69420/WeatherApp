@@ -74,11 +74,11 @@ final class RootVC: UIViewController {
 	private func geodecodeCoordinates(_ location: Location) {
 		geocoder.reverseGeocodeLocation(CLLocation(latitude: location.latitude, longitude: location.longitude)) { placemarks, error in
 			if let error = error {
-				print("geocoding error: \(error)")
+				Log.error("\(error)")
 			}
 			
 			if let placemarks = placemarks {
-				print("found placemarks: \(placemarks)")
+				Log.info("found placemarks: \(placemarks)")
 				let placemark = placemarks.first
 				DispatchQueue.main.async {
 					self.currentWeatherVC.locationString = placemark?.locality
